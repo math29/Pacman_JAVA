@@ -1,0 +1,18 @@
+package jeu;
+
+import java.awt.Image;
+import java.awt.geom.Point2D;
+
+/* Ceci est la class abstracte de toutes les classes d'objets presents dans le labyrinthe */
+
+public abstract  class Objet2D extends Point2D {
+	private Image Im;
+	
+	public Image getIm(){
+		return Im;
+	}
+	
+	public void setIm(Image Im){
+		this.Im=Im;
+	}
+}
