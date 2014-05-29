@@ -25,6 +25,7 @@ import javax.swing.JButton;
 public class Bouton extends JButton implements MouseListener{
     private String name;
     private Image img;
+    private String couleur = "jaune";
     
     public Bouton(String str){
         super(str);
@@ -48,15 +49,19 @@ public class Bouton extends JButton implements MouseListener{
     
     @Override
     public void mouseExited(MouseEvent event) {
-        try{
-            img = ImageIO.read(new File("vert.png"));
-        }catch(IOException e){
-            e.printStackTrace();
+        if(couleur == "jaune"){
+            try{
+                img = ImageIO.read(new File("jaune.png"));
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
+        
     }
     
     @Override
     public void mouseClicked(MouseEvent event) {
+        couleur = "vert";
         try{
             img = ImageIO.read(new File("vert.png"));
         }catch(IOException e){
@@ -66,6 +71,7 @@ public class Bouton extends JButton implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent event) {
+        couleur = "vert";
         try{
             img = ImageIO.read(new File("vert.png"));
         }catch(IOException e){
@@ -75,11 +81,14 @@ public class Bouton extends JButton implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        try{
-            img = ImageIO.read(new File("vert.png"));
-        }catch(IOException e){
-            e.printStackTrace();
+        if(couleur=="jaune"){
+            try{
+                img = ImageIO.read(new File("jaune.png"));
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
+        
     }
 
     @Override
@@ -92,5 +101,8 @@ public class Bouton extends JButton implements MouseListener{
         }
     }
 
+    public void setCouleur(String c){
+        couleur=c;
+    }
     
 }

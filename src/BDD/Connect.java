@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
+import jeu.DifficulteCarte;
 import main.Jeu;
 
 /**
@@ -23,6 +24,7 @@ public class Connect {
     
     private ArrayList <String> titres;
     private ArrayList <String> contenu;
+    private String bdd;
     
     public Connect(Jeu j, String n){
         try{
@@ -36,13 +38,21 @@ public class Connect {
             Connection conn = DriverManager.getConnection(url, user, passwd);
             System.out.println("Connexion établie");
             
+            if(j.getLevel()==DifficulteCarte.Niveau.FACILE){
+                bdd = "listescores";
+            }else if(j.getLevel()==DifficulteCarte.Niveau.MOYEN){
+                bdd = "listescores2";
+            }else if(j.getLevel()==DifficulteCarte.Niveau.DIFFICILE){
+                bdd = "listescores3";
+            }
+            
             Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            state.executeUpdate("INSERT INTO listescores (joueur, score) VALUES('"+n+"','"+j.getJoueur().getScore()+"')");
+            state.executeUpdate("INSERT INTO "+bdd+" (joueur, score) VALUES('"+n+"','"+j.getJoueur().getScore()+"')");
             
             Statement state2 = conn.createStatement();
             
             // L'objet ResultSet contient le résultat de la requête SQL
-            ResultSet result = state2.executeQuery("SELECT * FROM listescores ORDER BY score DESC");
+            ResultSet result = state2.executeQuery("SELECT * FROM "+bdd+" ORDER BY score DESC");
             
             // Récupération des métadata
             ResultSetMetaData resultMeta = result.getMetaData();

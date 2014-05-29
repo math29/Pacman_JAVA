@@ -51,7 +51,7 @@ public class AffichageLabyrinthe extends JPanel{
         /**
      * Créer une nouvelle vue qui dessinera le labyrinthe
      */
-    public AffichageLabyrinthe(Labyrinthe lab, Joueur joueur, Fantome fantome1, Fantome fantome2,Fantome fantome3, Dimension dim) {
+    public AffichageLabyrinthe(Labyrinthe lab, Joueur joueur, Fantome fantome1, Fantome fantome2,Fantome fantome3, Dimension dim, Color background) {
         super();
 
         this._joueur=joueur;
@@ -60,9 +60,8 @@ public class AffichageLabyrinthe extends JPanel{
         _fantome3 = fantome3;
         this._lab = lab;
         this._dimLab = dim;
-
+        setBackground(background);
         setPreferredSize(_dimLab);
-        setBackground(Color.PINK);
         setLayout(null);
         setVisible(true);
 

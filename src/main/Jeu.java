@@ -7,6 +7,7 @@ import ihm.FenetrePrincipale;
 import java.awt.Dimension;
 import jeu.Coordonnees;
 import jeu.DifficulteCarte;
+import jeu.DifficulteCarte.Niveau;
 import jeu.Fantome;
 import jeu.Joueur;
 import jeu.Labyrinthe;
@@ -61,7 +62,10 @@ public class Jeu {
         private FenetrePrincipale _fen;
         
         private String _skinJoueur;
-	// Constructeur
+        private int _difficulte=150;
+        private String _music="Nyan-Cat-ringtone-6-second-loop.wav.wav";
+        Niveau _level=Niveau.MOYEN;
+        // Constructeur
 	private Jeu(){
 		_resolution = new Dimension(800, 600);		// Dimensions par d�fault du jeu
                 _skinJoueur="pacman_ouvert.png";
@@ -84,11 +88,11 @@ public class Jeu {
                 }
                 
                 // Lancement musique de partie
-                threadMusiquePartie = new MusiqueJeu("Nyan-Cat-ringtone-6-second-loop.wav.wav");
+                threadMusiquePartie = new MusiqueJeu(_music);
                 threadMusiquePartie.start();
                 
 		// cr�ation Description labyrinthe 
-		_carte = new DifficulteCarte();
+		_carte = new DifficulteCarte(_level);
 		//Instanciation d'un Labyrinthe 
 		_lab = new Labyrinthe(_carte);
                 
@@ -108,7 +112,7 @@ public class Jeu {
                 
                 _fen.affichePanel(3);
                 
-                _gestionF = new GestionFantome(this, _fantome1, _fantome2, _fantome3, _fen.getAfficheLabyrinthe(), _joueur, _fen.getAffichageLabyrinthe().getAfficheJoueur());
+                _gestionF = new GestionFantome(this, _fantome1, _fantome2, _fantome3, _fen.getAfficheLabyrinthe(), _joueur, _fen.getAffichageLabyrinthe().getAfficheJoueur(), _difficulte);
                 _fen.getAffichageLabyrinthe().getControle().setgestionFantome(_gestionF);
                 _gestionF.start();
 	}
@@ -252,5 +256,21 @@ public class Jeu {
         
         public void setSkinJoueur(String skin){
             _skinJoueur = skin;
+        }
+        
+        public void setDifficulte(int d){
+            _difficulte=d;
+        }
+        
+        public void setMusic(String music) {
+            this._music = music;
+	}
+        
+        public void setLevel(Niveau l){
+            _level = l;
+        }
+        
+        public Niveau getLevel(){
+            return _level;
         }
 }

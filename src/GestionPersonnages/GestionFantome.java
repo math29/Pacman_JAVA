@@ -6,7 +6,6 @@
 
 package GestionPersonnages;
 
-import ihm.AffichageFantome;
 import ihm.AffichageJoueur;
 import ihm.AffichageJoueur.Direction;
 import ihm.AffichageLabyrinthe;
@@ -41,8 +40,9 @@ public class GestionFantome extends Thread{
     private Joueur _joueur;
     private AffichageJoueur _affJoueur;
     private Jeu _jeu ;
+    private int _rapidite;
     
-    public GestionFantome(Jeu jeu, Fantome fantome1, Fantome fantome2,Fantome fantome3, AffichageLabyrinthe afficheLab, Joueur joueur, AffichageJoueur affJoueur){
+    public GestionFantome(Jeu jeu, Fantome fantome1, Fantome fantome2,Fantome fantome3, AffichageLabyrinthe afficheLab, Joueur joueur, AffichageJoueur affJoueur, int r){
         _fantome1 = fantome1;
         _fantome2 = fantome2;
         _fantome3 = fantome3;
@@ -50,6 +50,7 @@ public class GestionFantome extends Thread{
         _joueur = joueur;
         _affJoueur = affJoueur;
         _jeu = jeu;
+        _rapidite = r;
     }
     
     public void run() {
@@ -451,7 +452,7 @@ public class GestionFantome extends Thread{
             // On actualise le labyrinthe
             _affLab.repaintLabyrinthe();
             try {
-                this.sleep(150);
+                this.sleep(_rapidite);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GestionFantome.class.getName()).log(Level.SEVERE, null, ex);
             }

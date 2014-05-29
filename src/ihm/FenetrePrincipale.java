@@ -45,6 +45,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import jeu.DifficulteCarte;
 import main.Jeu;
 
 /**
@@ -71,21 +72,24 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
         private JButton boutonCouperSon;
         
         /*Gestion menu option*/
-        private JButton boutonCouleur;
-        private JButton boutonMusique;
-        private JButton boutonDifficulte;
         private JComboBox choixCouleur;
         private JComboBox choixMusique;
         private JComboBox choixDifficulte;
+        private int menu=1;
         private JButton boutonValider;
+        private Color background=Color.blue;
+        
+        private Image img1;
+        private Image img2;
+        private Image img3;
         
         /*
         *   Boutons Fenetre de choix de MAP
         */
         private Bouton boutonMap1;
-        private JButton boutonMap2;
-        private JButton boutonMap3;
-        private JButton boutonChoixPerso;
+        private Bouton boutonMap2;
+        private Bouton boutonMap3;
+        private Bouton boutonChoixPerso;
         
         /*
         Fenetre de Fin de jeu
@@ -99,8 +103,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
         private String _score;
         
         private GestionFantome _gestionF;
-        
-        private int menu=1;
 	
     /**
      *
@@ -167,31 +169,30 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 * Création des boutons pour les skins du pacman
                 *
                 */
-                boutonSkin1 = new JButton();
-                try {
-                    Image img1 = ImageIO.read(new File("pacmanWarriorTransparent.gif"));
-                    boutonSkin1.setIcon(new ImageIcon(img1));
-                } catch (IOException ex) {
-                }
-                boutonSkin2 = new JButton();
-                try {
-                    Image img = ImageIO.read(new File("pacmangirlv2 transparant.gif"));
-                    boutonSkin2.setIcon(new ImageIcon(img));
-                } catch (IOException ex) {
-                }
-                boutonSkin3 = new JButton();
-                try {
-                    Image img2 = ImageIO.read(new File("pacman_ouvert.png"));
-                    boutonSkin3.setIcon(new ImageIcon(img2));
-                } catch (IOException ex) {
-                }
-                boutonSkin3.setPreferredSize(new Dimension(100, 70));
                 
-                boutonSkin1.addActionListener(this);
-                boutonSkin2.addActionListener(this);
-                boutonSkin3.addActionListener(this);
+                try {
+                img1 = ImageIO.read(new File("pacmanWarriorTransparent.gif"));
+                } catch (IOException ex) {
+                    }
+                boutonSkin1 = new BoutonSkin(img1);
+                try {
+                img2 = ImageIO.read(new File("pacman_ouvert.png"));
+                } catch (IOException ex) {
+                    }
+                boutonSkin2 = new BoutonSkin(img2);
+                
+                try {
+                img3 = ImageIO.read(new File("pacman_ouvert.png"));
+                } catch (IOException ex) {
+                    }
+                boutonSkin3 = new BoutonSkin(img3);
+                
+                //boutonSkin1.addActionListener(this);
+                //boutonSkin2.addActionListener(this);
+                //boutonSkin3.addActionListener(this);
                 
                 JPanel boutonLesPersos = new JPanel();
+                boutonLesPersos.setLayout(new GridLayout(1,3));
                 boutonLesPersos.add(boutonSkin1);
                 boutonLesPersos.add(boutonSkin2);
                 boutonLesPersos.add(boutonSkin3);
@@ -254,7 +255,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 /* On créer une nouvelle vue de Labyrinthe en récupérant les données du jeu, il ne s'affiche que si la partie a été lancé par l'utilisateur*/
                 if(_jeu.isPartieEnCours())
                 {
-                    _affLab = new AffichageLabyrinthe(_jeu.getLab(), _jeu.getJoueur(), _jeu.getFantome1(), _jeu.getFantome2(), _jeu.getFantome3(), _jeu.getResolution());
+                    _affLab = new AffichageLabyrinthe(_jeu.getLab(), _jeu.getJoueur(), _jeu.getFantome1(), _jeu.getFantome2(), _jeu.getFantome3(), _jeu.getResolution(), background);
                     getContentPane().add(_affLab, BorderLayout.WEST);
                 }
 
@@ -274,25 +275,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
 		 * Gestion des menu barre, boutons etc .. A mettre
 		 * 
 		 */
-                menu =4;
+            	menu=4;
+            	
                 AffichageBackground affOptions = new AffichageBackground();
                 this.setContentPane(affOptions);
-             
-                //JLabel messageConstruction = new JLabel("Page en construction");
-                //Font police = new Font("Tahoma", Font.BOLD, 30);
-                //messageConstruction.setFont(police);
-                //messageConstruction.setForeground(Color.red);
-                //messageConstruction.setHorizontalAlignment(JLabel.CENTER);
                 
-                JLabel couleur = new JLabel("Couleur");
-                JPanel premiereCase = new JPanel();
-                premiereCase.add(couleur);
-                String[] tab1={"Rouge", "Bleu", "Vert"};
-                choixCouleur = new JComboBox(tab1);
-                choixCouleur.addActionListener(this);
-                choixCouleur.setPreferredSize(new Dimension(100, 20));
-                choixCouleur.setForeground(Color.pink);
-                premiereCase.add(choixCouleur);
+                JLabel couleur = new JLabel("Couleur");	//Définition d'un label pour afficher le mot "Couleur"
+                JPanel premiereCase = new JPanel();	//On dit que ça sera dans la première case
+                premiereCase.add(couleur);	//Ajout du label a la première case
+                String[] tab1={"Rose", "Rouge", "Bleu", "Vert"};	//Définition des différents choix possibles dans la liste déroulante
+                choixCouleur = new JComboBox(tab1);	//Ajout des choix possibles à la liste
+                choixCouleur.addActionListener(this);	//Il y aura des interruptions possibles
+                choixCouleur.setPreferredSize(new Dimension(100, 20));	//Choix de la taille de la liste déroulante (longueur de la case)
+                choixCouleur.setForeground(Color.black);	//Ecritures en noir
+                premiereCase.add(choixCouleur);	//On ajoute la liste à la première case
                 
                 JLabel musique = new JLabel("Musique");
                 JPanel deuxiemeCase = new JPanel();
@@ -301,40 +297,26 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 choixMusique = new JComboBox(tab2);
                 choixMusique.addActionListener(this);
                 choixMusique.setPreferredSize(new Dimension(100, 20));
-                choixMusique.setForeground(Color.pink);
+                choixMusique.setForeground(Color.black);
                 deuxiemeCase.add(choixMusique);
                 
                 JLabel difficulte = new JLabel("Difficulté");
                 JPanel troisiemeCase = new JPanel();
                 troisiemeCase.add(difficulte);
-                String[] tab3={"Lent", "Moyen", "Rapide"};
+                String[] tab3={"Moyen", "Lent", "Rapide"};
                 choixDifficulte = new JComboBox(tab3);
                 choixDifficulte.addActionListener(this);
-                choixDifficulte.setPreferredSize(new Dimension(100, 20)); 
-                choixDifficulte.setForeground(Color.pink);
+                choixDifficulte.setPreferredSize(new Dimension(100, 20));
+                choixDifficulte.setForeground(Color.black);
                 troisiemeCase.add(choixDifficulte);
                 
-                this.setLayout(new GridLayout(4,1));
-                this.getContentPane().add(premiereCase);
-                //boutonCouleur.addActionListener(this);
-                //this.getContentPane().add(boutonCouleur,BorderLayout.NORTH);
-                
-                this.getContentPane().add(deuxiemeCase);
-                this.getContentPane().add(troisiemeCase);
-                //boutonMusique = new JButton("Musique");
-                //this.getContentPane().add(boutonMusique);
-                //boutonMusique.addActionListener(this);
-                //boutonDifficulte = new JButton("Difficulté");
-                //this.getContentPane().add(boutonDifficulte);
-                //boutonDifficulte.addActionListener(this);
-                // On définit le layout à utiliser sur le content Pane
-                //this.setLayout(new BorderLayout());
-                // Et le bouton start au sud
-                boutonValider = new JButton("Valider");
-                this.getContentPane().add(boutonValider/*,BorderLayout.SOUTH*/);
-                boutonValider.addActionListener(this);
-                
-                //this.getContentPane().add(messageConstruction,BorderLayout.NORTH);
+                this.setLayout(new GridLayout(4,1));	//Il y aura en tout 4 lignes et une colonne
+                this.getContentPane().add(premiereCase);	//Ajout du choix des couleurs sur le premier emplacement
+                this.getContentPane().add(deuxiemeCase);	//Ajout du choix des musiques sur le deuxième emplacement
+                this.getContentPane().add(troisiemeCase);	//Ajout du choix des difficultés sur le troisième emplacement
+                boutonValider = new JButton("Valider");	//Création du bouton "Valider
+                this.getContentPane().add(boutonValider);	//Ajout de ce bouton sur le dernier emplacement
+                boutonValider.addActionListener(this);	//Il y aura des interruptions sur ce bouton
                 
                 this.setVisible(true);
                 break;
@@ -350,11 +332,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 this.setContentPane(affMap);
                 boutonMap1 = new Bouton("MAP 1");
                 boutonMap1.addActionListener(this);
-                boutonMap2 = new JButton("MAP 2");
+                boutonMap2 = new Bouton("MAP 2");
                 boutonMap2.addActionListener(this);
-                boutonMap3 = new JButton("MAP 3");
+                boutonMap3 = new Bouton("MAP 3");
                 boutonMap3.addActionListener(this);
-                boutonChoixPerso = new JButton("Choix Persos");
+                boutonChoixPerso = new Bouton("Choix Persos");
                 boutonChoixPerso.addActionListener(this);
         
                 this.setLayout(new GridLayout(4,1));
@@ -476,7 +458,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 // Lancement d'une nouvelle partie
                 Jeu.getInstance().nouvellePartie();
             }
-            if(arg0.getSource() == boutonRetour){
+            if(arg0.getSource() == boutonValider){
                     affichePanel(2);
             }
             
@@ -489,7 +471,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
             }
                     
             if(arg0.getSource() == boutonSkin1){
-
                 _jeu.setSkinJoueur("pacmanWarriorTransparent.gif");
             }
             
@@ -504,16 +485,69 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
             if(arg0.getSource() == boutonMap1){
                 JOptionPane jpo1 = new JOptionPane();
                 ImageIcon img = new ImageIcon("MAPS/carte1.png");
+                boutonMap2.setCouleur("jaune");
+                boutonMap3.setCouleur("jaune");
+                _jeu.setLevel(DifficulteCarte.Niveau.FACILE);
                 jpo1.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
-                
             }
             
             if(arg0.getSource() == boutonMap2){
-                System.out.println("En construction");
+                JOptionPane jpo1 = new JOptionPane();
+                ImageIcon img = new ImageIcon("MAPS/carte2.png");
+                boutonMap1.setCouleur("jaune");
+                boutonMap3.setCouleur("jaune");
+                _jeu.setLevel(DifficulteCarte.Niveau.MOYEN);
+                jpo1.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
             }
             
             if(arg0.getSource() == boutonMap3){
-                System.out.println("En construction");
+                JOptionPane jpo1 = new JOptionPane();
+                ImageIcon img = new ImageIcon("MAPS/carte3.png");
+                boutonMap1.setCouleur("jaune");
+                boutonMap2.setCouleur("jaune");
+                _jeu.setLevel(DifficulteCarte.Niveau.DIFFICILE);
+                jpo1.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
+            }
+            
+            if(menu==4 && choixCouleur.getSelectedItem()=="Rose"){
+            	System.out.println("Rose");
+            	background=Color.pink;
+            }
+            if(menu==4 && choixCouleur.getSelectedItem()=="Rouge"){
+            	System.out.println("Rouge");
+            	background=Color.red;
+            }
+            if(menu==4 && choixCouleur.getSelectedItem()=="Bleu"){
+            	System.out.println("Bleu");
+            	background=Color.blue;
+            }
+            if(menu==4 && choixCouleur.getSelectedItem()=="Vert"){
+            	System.out.println("Vert");
+            	background=Color.green;
+            }
+            if(menu==4 && choixMusique.getSelectedItem()=="Musique 1"){
+            	System.out.println("Musique 1");
+            	_jeu.setMusic("Nyan-Cat-ringtone-6-second-loop.wav.wav");
+            }
+            if(menu==4 && choixMusique.getSelectedItem()=="Musique 2"){
+            	System.out.println("Musique 2");
+            	_jeu.setMusic("Nyan-Cat-ringtone-6-second-loop.wav.wav");
+            }
+            if(menu==4 && choixMusique.getSelectedItem()=="Musique 3"){
+            	System.out.println("Musique 3");
+            	_jeu.setMusic("EFFECTS01.WAV");
+            }
+            if(menu==4 && choixDifficulte.getSelectedItem()=="Lent"){
+            	System.out.println("Lent");
+            	_jeu.setDifficulte(3000);
+            }
+            if(menu==4 && choixDifficulte.getSelectedItem()=="Moyen"){
+            	System.out.println("Moyen");
+            	_jeu.setDifficulte(300);
+            }
+            if(menu==4 && choixDifficulte.getSelectedItem()=="Rapide"){
+            	System.out.println("Rapide");
+            	_jeu.setDifficulte(30);
             }
         }
         
