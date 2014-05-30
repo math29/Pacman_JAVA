@@ -23,8 +23,8 @@ import jeu.Personnage;
  */
 public class InterruptionsClavier implements KeyListener {
 
-    private Joueur _joueur;
-    private AffichageLabyrinthe _affLab;
+    private final Joueur _joueur;
+    private final AffichageLabyrinthe _affLab;
     private AffichageJoueur _affJoueur;
     private GestionFantome _gestionF;
     
@@ -35,8 +35,8 @@ public class InterruptionsClavier implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent arg0) {
-        Coordonnees coord = null;
-        Case caseActuelle = null;
+        Coordonnees coord;
+        Case caseActuelle;
         _affJoueur = _affLab.getAfficheJoueur();
         
         
@@ -84,12 +84,10 @@ public class InterruptionsClavier implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent arg0) {
-        ; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void keyTyped(KeyEvent arg0) {
-        ; //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setgestionFantome(GestionFantome gestionF) {

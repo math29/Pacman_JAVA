@@ -23,7 +23,7 @@ import javax.swing.JButton;
  * @author Mathieu
  */
 public class Bouton extends JButton implements MouseListener{
-    private String name;
+    private final String name;
     private Image img;
     private String couleur = "jaune";
     
@@ -33,11 +33,11 @@ public class Bouton extends JButton implements MouseListener{
         try{
             img=ImageIO.read(new File("jaune.png"));
         }catch(IOException e){
-            e.printStackTrace();
         }
         this.addMouseListener(this);
     }
 
+    @Override
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
         GradientPaint gp = new GradientPaint(0, 0, Color.blue, 0, 20, Color.cyan, true);
@@ -49,11 +49,10 @@ public class Bouton extends JButton implements MouseListener{
     
     @Override
     public void mouseExited(MouseEvent event) {
-        if(couleur == "jaune"){
+        if("jaune".equals(couleur)){
             try{
                 img = ImageIO.read(new File("jaune.png"));
             }catch(IOException e){
-                e.printStackTrace();
             }
         }
         
@@ -65,7 +64,6 @@ public class Bouton extends JButton implements MouseListener{
         try{
             img = ImageIO.read(new File("vert.png"));
         }catch(IOException e){
-            e.printStackTrace();
         }
     }
 
@@ -75,17 +73,15 @@ public class Bouton extends JButton implements MouseListener{
         try{
             img = ImageIO.read(new File("vert.png"));
         }catch(IOException e){
-            e.printStackTrace();
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        if(couleur=="jaune"){
+        if("jaune".equals(couleur)){
             try{
                 img = ImageIO.read(new File("jaune.png"));
             }catch(IOException e){
-                e.printStackTrace();
             }
         }
         
@@ -97,7 +93,6 @@ public class Bouton extends JButton implements MouseListener{
         try{
             img = ImageIO.read(new File("vert.png"));
         }catch(IOException e){
-            e.printStackTrace();
         }
     }
 

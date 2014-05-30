@@ -6,7 +6,6 @@
 
 package ihm;
 
-import GestionPersonnages.GestionFantome;
 import interrupt.InterruptionsClavier;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,15 +28,15 @@ public class AffichageLabyrinthe extends JPanel{
     /*déclaration des variables */
     
     private Labyrinthe _lab;
-    private Dimension _dimLab;
+    private final Dimension _dimLab;
     private ArrayList<ArrayList<AffichageCase>> _Cases;
     private ArrayList<ArrayList<AffichageObjet>> _Objets;
     private AffichageJoueur _afficheJoueur;
-    private Joueur _joueur;
+    private final Joueur _joueur;
     
-    private Fantome _fantome1;
-    private Fantome _fantome2;
-    private Fantome _fantome3;
+    private final Fantome _fantome1;
+    private final Fantome _fantome2;
+    private final Fantome _fantome3;
     
     private AffichageFantome _affFantome1;
     private AffichageFantome _affFantome2;
@@ -50,6 +49,13 @@ public class AffichageLabyrinthe extends JPanel{
     
         /**
      * Créer une nouvelle vue qui dessinera le labyrinthe
+     * @param lab
+     * @param joueur
+     * @param fantome1
+     * @param fantome2
+     * @param fantome3
+     * @param background
+     * @param dim
      */
     public AffichageLabyrinthe(Labyrinthe lab, Joueur joueur, Fantome fantome1, Fantome fantome2,Fantome fantome3, Dimension dim, Color background) {
         super();
@@ -78,16 +84,15 @@ public class AffichageLabyrinthe extends JPanel{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        AffichageCase CaseTemp = null;
-        AffichageJoueur vueJoueurTemp = null;
-        AffichageObjet ObjetTemp = null;
+        AffichageCase CaseTemp;
+        AffichageObjet ObjetTemp;
 
         if (_initialDraw) {
             // Dessin des cases.
             //On réinitialise le dessin des cases
-            _Cases = new ArrayList<ArrayList<AffichageCase>>(_lab.getCases().size());
+            _Cases = new ArrayList<>(_lab.getCases().size());
             // On initialise le dessin des objets
-            _Objets = new ArrayList<ArrayList<AffichageObjet>>(_lab.getCases().size());
+            _Objets = new ArrayList<>(_lab.getCases().size());
 
             // Ainsi que celui des joueurs
             // On dessine les cases 
@@ -97,7 +102,7 @@ public class AffichageLabyrinthe extends JPanel{
                 _Objets.add(new ArrayList<AffichageObjet>(_lab.getCases().get(i).size()));
                 for (int j = 0; j < _lab.getCases().get(i).size(); j++) {
 
-                ObjetTemp = new AffichageObjet(_lab.getCases().get(j).get(i).getObjets().get(0));
+                ObjetTemp = new AffichageObjet(_lab.getCases().get(j).get(i).getContenu().get(0));
                 ObjetTemp.setBounds(i * 50 + 22 +AffichageLabyrinthe.offsetX, j * 50 + 22 + AffichageLabyrinthe.offsetY, 5, 5);
                 _Objets.get(i).add(ObjetTemp);                 
                 this.add(ObjetTemp);
@@ -113,26 +118,26 @@ public class AffichageLabyrinthe extends JPanel{
             }
              /* On créer l'affichage du joueur */
                 _afficheJoueur = new AffichageJoueur(_joueur);
-                _afficheJoueur.setBounds((int) _joueur.getX() * 50 + this.offsetX + 15,
-                                        (int) _joueur.getY() * 50 + this.offsetY + 15,
+                _afficheJoueur.setBounds((int) _joueur.getX() * 50 + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _joueur.getY() * 50 + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
             /* On créé l'affichage du/des fantomes */
                 // Fantome 1 :
                 _affFantome1 = new AffichageFantome(_fantome1);
-                _affFantome1.setBounds((int) _fantome1.getX() * 50 + this.offsetX + 15,
-                                        (int) _fantome1.getY() * 50 + this.offsetY + 15,
+                _affFantome1.setBounds((int) _fantome1.getX() * 50 + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _fantome1.getY() * 50 + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
                 
                 // Fantome 2 :
                 _affFantome2 = new AffichageFantome(_fantome1);
-                _affFantome2.setBounds((int) _fantome2.getX() * 50 + this.offsetX + 15,
-                                        (int) _fantome2.getY() * 50 + this.offsetY + 15,
+                _affFantome2.setBounds((int) _fantome2.getX() * 50 + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _fantome2.getY() * 50 + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
                 
                 // Fantome 3 :
                 _affFantome3 = new AffichageFantome(_fantome1);
-                _affFantome3.setBounds((int) _fantome3.getX() * 50 + this.offsetX + 15,
-                                        (int) _fantome3.getY() * 50 + this.offsetY + 15,
+                _affFantome3.setBounds((int) _fantome3.getX() * 50 + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _fantome3.getY() * 50 + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
         _initialDraw=false;
         }
@@ -168,8 +173,8 @@ public class AffichageLabyrinthe extends JPanel{
                 this.remove(_afficheJoueur);
                 _afficheJoueur = new AffichageJoueur(_joueur/*, _vuesJoueurs.get(i).get_orientation()*/);
                 /* On lui donne les nouvelles  coordonnées du personnage du joueur considéré */
-                _afficheJoueur.setBounds((int) _joueur.getX() * (50 / _joueur.facteurPrecision) + this.offsetX + 15,
-                                        (int) _joueur.getY() * (50 / _joueur.facteurPrecision) + this.offsetY + 15,
+                _afficheJoueur.setBounds((int) _joueur.getX() * (50 / Joueur.facteurPrecision) + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _joueur.getY() * (50 / Joueur.facteurPrecision) + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
 
                 this.add(_afficheJoueur);
@@ -178,22 +183,22 @@ public class AffichageLabyrinthe extends JPanel{
                 this.remove(_affFantome1);
                 _affFantome1 = new AffichageFantome(_fantome1);
                 /* On lui donne les nouvelles  coordonnées du personnage du joueur considéré */
-                _affFantome1.setBounds((int) _fantome1.getX() * (50 / _fantome1.facteurPrecision) + this.offsetX + 15,
-                                        (int) _fantome1.getY() * (50 / _fantome1.facteurPrecision) + this.offsetY + 15,
+                _affFantome1.setBounds((int) _fantome1.getX() * (50 / Fantome.facteurPrecision) + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _fantome1.getY() * (50 / Fantome.facteurPrecision) + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
                 
                 this.remove(_affFantome2);
                 _affFantome2 = new AffichageFantome(_fantome2);
                 /* On lui donne les nouvelles  coordonnées du personnage du joueur considéré */
-                _affFantome2.setBounds((int) _fantome2.getX() * (50 / _fantome2.facteurPrecision) + this.offsetX + 15,
-                                        (int) _fantome2.getY() * (50 / _fantome2.facteurPrecision) + this.offsetY + 15,
+                _affFantome2.setBounds((int) _fantome2.getX() * (50 / Fantome.facteurPrecision) + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _fantome2.getY() * (50 / Fantome.facteurPrecision) + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
                 
                 this.remove(_affFantome3);
                 _affFantome3 = new AffichageFantome(_fantome3);
                 /* On lui donne les nouvelles  coordonnées du personnage du joueur considéré */
-                _affFantome3.setBounds((int) _fantome3.getX() * (50 / _fantome3.facteurPrecision) + this.offsetX + 15,
-                                        (int) _fantome3.getY() * (50 / _fantome3.facteurPrecision) + this.offsetY + 15,
+                _affFantome3.setBounds((int) _fantome3.getX() * (50 / Fantome.facteurPrecision) + AffichageLabyrinthe.offsetX + 15,
+                                        (int) _fantome3.getY() * (50 / Fantome.facteurPrecision) + AffichageLabyrinthe.offsetY + 15,
                                         20, 20);
 
                 this.add(_affFantome1);

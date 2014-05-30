@@ -22,8 +22,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Mathieu
  */
 public class MusiqueJeu extends Thread {
-    private String filename;
-    private Position curPosition;
+    private final String filename;
+    private final Position curPosition;
     private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
     enum Position {LEFT, RIGHT, NORMAL};
  
@@ -32,6 +32,7 @@ public class MusiqueJeu extends Thread {
         curPosition = Position.NORMAL;
     }
  
+    @Override
     public void run() {
         File soundFile = new File(filename);
         if (!soundFile.exists()) {
@@ -39,29 +40,21 @@ public class MusiqueJeu extends Thread {
             return;
         }
         while(true){
-            AudioInputStream audioInputStream = null;
+            AudioInputStream audioInputStream;
             try {
                 audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            } catch (UnsupportedAudioFileException e1) {
-                e1.printStackTrace();
-                return;
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            } catch (UnsupportedAudioFileException | IOException e1) {
                 return;
             }
         
             AudioFormat format = audioInputStream.getFormat();
-            SourceDataLine auline = null;
+            SourceDataLine auline;
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
         
             try {
                auline = (SourceDataLine) AudioSystem.getLine(info);
                 auline.open(format);
             } catch (LineUnavailableException e) {
-                e.printStackTrace();
-                return;
-            } catch (Exception e) {
-                e.printStackTrace();
                 return;
             }
  
@@ -86,7 +79,6 @@ public class MusiqueJeu extends Thread {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
                 return;
             } finally {
                 auline.drain();

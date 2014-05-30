@@ -1,41 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package jeu;
 
 import java.util.ArrayList;
 import jeu.Case.Type;
 
 /**
- *
+ * Classe qui va nous permettre de dessiner la carte de notre labyrinthe
  * @author Mathieu
  */
-public class DifficulteCarte {
+public final class DifficulteCarte {
     /**
-     * Il existe différent type de difficulté de niveau, déterminée empiriquement par le créateur du niveau.
+     * Nous avons ici les 3 cartes différentes classées par difficulté
      */
     public enum Niveau {
         FACILE, MOYEN, DIFFICILE
     }
-    /**
-     * Un niveau a une difficulté.
-     */
+    
     private Niveau _niv;
-    /**
-     * Un niveau a une description des cases qui le compose.
-     */
     private ArrayList<ArrayList<Type>> _carte;
-
+    
     /**
-     * Créer un nouveau descripteur de niveau dans la difficulté MOYEN.
+     * Constructeur qui, par défault, nous met la carte facile (pratique pour les tests)
      */
     public DifficulteCarte() {
-        this._niv = _niv.FACILE;
+        this._niv = Niveau.FACILE;
         this._carte = carteFacile();
     }
+    
     /**
      * Créer un nouveau niveau en fonction du niveau demandé
      * @param niv
@@ -56,13 +46,14 @@ public class DifficulteCarte {
     }
 
     /**
-     *         Une descritption d'un niveau facile.
+     * Une descritption d'un niveau facile.
+     * @return 
      */
     public ArrayList<ArrayList<Type>> carteMoyen() {
-        ArrayList<ArrayList<Type>> descMoyen = new ArrayList<ArrayList<Type>>();
+        ArrayList<ArrayList<Type>> descMoyen = new ArrayList<>();
 
         /* LIGNE 1 on va de bas en haut*/
-            ArrayList<Type> ligne_1 = new ArrayList<Type>();
+            ArrayList<Type> ligne_1 = new ArrayList<>();
                 ligne_1.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_1.add(Type.HORIZONTALE);
                 ligne_1.add(Type.HORIZONTALE);
@@ -74,7 +65,7 @@ public class DifficulteCarte {
                 ligne_1.add(Type.HORIZONTALE);
                 ligne_1.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 2 */
-            ArrayList<Type> ligne_2 = new ArrayList<Type>();
+            ArrayList<Type> ligne_2 = new ArrayList<>();
                 ligne_2.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_2.add(Type.T_INVERSE);
                 ligne_2.add(Type.ANGLE_BAS_DROIT);
@@ -86,7 +77,7 @@ public class DifficulteCarte {
                 ligne_2.add(Type.T_INVERSE);
                 ligne_2.add(Type.ANGLE_HAUT_DROIT);
         /* LIGNE 3 */
-            ArrayList<Type> ligne_3 = new ArrayList<Type>();
+            ArrayList<Type> ligne_3 = new ArrayList<>();
                 ligne_3.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_3.add(Type.ANGLE_HAUT_DROIT);
                 ligne_3.add(Type.T_DROITE);
@@ -98,7 +89,7 @@ public class DifficulteCarte {
                 ligne_3.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_3.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 4 */
-            ArrayList<Type> ligne_4 = new ArrayList<Type>();
+            ArrayList<Type> ligne_4 = new ArrayList<>();
                 ligne_4.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_4.add(Type.HORIZONTALE);
                 ligne_4.add(Type.CROIX);
@@ -110,7 +101,7 @@ public class DifficulteCarte {
                 ligne_4.add(Type.HORIZONTALE);
                 ligne_4.add(Type.ANGLE_HAUT_DROIT);
         /* LIGNE 5 */
-            ArrayList<Type> ligne_5 = new ArrayList<Type>();
+            ArrayList<Type> ligne_5 = new ArrayList<>();
                 ligne_5.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_5.add(Type.HORIZONTALE);
                 ligne_5.add(Type.T_GAUCHE);
@@ -122,7 +113,7 @@ public class DifficulteCarte {
                 ligne_5.add(Type.HORIZONTALE);
                 ligne_5.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 6 */
-            ArrayList<Type> ligne_6 = new ArrayList<Type>();
+            ArrayList<Type> ligne_6 = new ArrayList<>();
                 ligne_6.add(Type.T_DROITE);
                 ligne_6.add(Type.HORIZONTALE);
                 ligne_6.add(Type.CROIX);
@@ -134,7 +125,7 @@ public class DifficulteCarte {
                 ligne_6.add(Type.HORIZONTALE);
                 ligne_6.add(Type.T_GAUCHE);
         /* LIGNE 7 */
-            ArrayList<Type> ligne_7 = new ArrayList<Type>();
+            ArrayList<Type> ligne_7 = new ArrayList<>();
                 ligne_7.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_7.add(Type.HORIZONTALE);
                 ligne_7.add(Type.T_GAUCHE);
@@ -146,7 +137,7 @@ public class DifficulteCarte {
                 ligne_7.add(Type.HORIZONTALE);
                 ligne_7.add(Type.ANGLE_HAUT_DROIT);
         /* LIGNE 8 */
-            ArrayList<Type> ligne_8 = new ArrayList<Type>();
+            ArrayList<Type> ligne_8 = new ArrayList<>();
                 ligne_8.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_8.add(Type.HORIZONTALE);
                 ligne_8.add(Type.T_GAUCHE);
@@ -158,7 +149,7 @@ public class DifficulteCarte {
                 ligne_8.add(Type.HORIZONTALE);
                 ligne_8.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 9 */
-            ArrayList<Type> ligne_9 = new ArrayList<Type>();
+            ArrayList<Type> ligne_9 = new ArrayList<>();
                 ligne_9.add(Type.T_DROITE);
                 ligne_9.add(Type.HORIZONTALE);
                 ligne_9.add(Type.CROIX);
@@ -170,7 +161,7 @@ public class DifficulteCarte {
                 ligne_9.add(Type.HORIZONTALE);
                 ligne_9.add(Type.T_GAUCHE);
         /* LIGNE 10 */
-            ArrayList<Type> ligne_10 = new ArrayList<Type>();
+            ArrayList<Type> ligne_10 = new ArrayList<>();
                 ligne_10.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_10.add(Type.HORIZONTALE);
                 ligne_10.add(Type.T_NORMAL);
@@ -196,30 +187,47 @@ public class DifficulteCarte {
         return descMoyen;
     }
 
+    /**
+     * Retourne le niveau actuellement choisit
+     * @return
+     */
     public Niveau getNiv() {
         return _niv;
     }
 
+    /**
+     * Permet de choisir un niveau
+     * @param _niv
+     */
     public void setNiv(Niveau _niv) {
         this._niv = _niv;
     }
 
+    /**
+     * Retourne la carte
+     * @return
+     */
     public ArrayList<ArrayList<Type>> getCarte() {
         return _carte;
     }
 
+    /**
+     * Permet de mettre une carte
+     * @param _carte
+     */
     public void setCarte(ArrayList<ArrayList<Type>> _carte) {
         this._carte = _carte;
     }
     
     /**
-     *         Une descritption d'un niveau moyen.
+     * Une descritption d'un niveau moyen.
+     * @return 
      */
     public ArrayList<ArrayList<Type>> carteFacile() {
-           	ArrayList<ArrayList<Type>> descFacile = new ArrayList<ArrayList<Type>>();
+           	ArrayList<ArrayList<Type>> descFacile = new ArrayList<>();
 
         /* LIGNE 1 on va de bas en haut*/
-            ArrayList<Type> ligne_1 = new ArrayList<Type>();
+            ArrayList<Type> ligne_1 = new ArrayList<>();
                 ligne_1.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_1.add(Type.T_INVERSE);
                 ligne_1.add(Type.HORIZONTALE);
@@ -231,7 +239,7 @@ public class DifficulteCarte {
                 ligne_1.add(Type.HORIZONTALE);
                 ligne_1.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 2 */
-            ArrayList<Type> ligne_2 = new ArrayList<Type>();
+            ArrayList<Type> ligne_2 = new ArrayList<>();
                 ligne_2.add(Type.VERTICALE);
                 ligne_2.add(Type.VERTICALE);
                 ligne_2.add(Type.ANGLE_BAS_GAUCHE);
@@ -243,7 +251,7 @@ public class DifficulteCarte {
                 ligne_2.add(Type.ANGLE_BAS_DROIT);
                 ligne_2.add(Type.VERTICALE);
         /* LIGNE 3 */
-            ArrayList<Type> ligne_3 = new ArrayList<Type>();
+            ArrayList<Type> ligne_3 = new ArrayList<>();
                 ligne_3.add(Type.T_DROITE);
                 ligne_3.add(Type.CROIX);
                 ligne_3.add(Type.T_NORMAL);
@@ -255,7 +263,7 @@ public class DifficulteCarte {
                 ligne_3.add(Type.T_NORMAL);
                 ligne_3.add(Type.T_GAUCHE);
         /* LIGNE 4 */
-            ArrayList<Type> ligne_4 = new ArrayList<Type>();
+            ArrayList<Type> ligne_4 = new ArrayList<>();
                 ligne_4.add(Type.VERTICALE);
                 ligne_4.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_4.add(Type.ANGLE_BAS_DROIT);
@@ -267,7 +275,7 @@ public class DifficulteCarte {
                 ligne_4.add(Type.HORIZONTALE);
                 ligne_4.add(Type.ANGLE_HAUT_DROIT);
         /* LIGNE 5 */
-            ArrayList<Type> ligne_5 = new ArrayList<Type>();
+            ArrayList<Type> ligne_5 = new ArrayList<>();
             	ligne_5.add(Type.ANGLE_HAUT_GAUCHE);
             	ligne_5.add(Type.HORIZONTALE);
             	ligne_5.add(Type.T_GAUCHE);
@@ -279,7 +287,7 @@ public class DifficulteCarte {
             	ligne_5.add(Type.HORIZONTALE);
             	ligne_5.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 6 */
-            ArrayList<Type> ligne_6 = new ArrayList<Type>();
+            ArrayList<Type> ligne_6 = new ArrayList<>();
                 ligne_6.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_6.add(Type.ANGLE_BAS_DROIT);
                 ligne_6.add(Type.VERTICALE);
@@ -291,7 +299,7 @@ public class DifficulteCarte {
                 ligne_6.add(Type.HORIZONTALE);
                 ligne_6.add(Type.T_GAUCHE);
         /* LIGNE 7 */
-            ArrayList<Type> ligne_7 = new ArrayList<Type>();
+            ArrayList<Type> ligne_7 = new ArrayList<>();
                 ligne_7.add(Type.VERTICALE);
                 ligne_7.add(Type.VERTICALE);
                 ligne_7.add(Type.T_DROITE);
@@ -303,7 +311,7 @@ public class DifficulteCarte {
                 ligne_7.add(Type.HORIZONTALE);
                 ligne_7.add(Type.T_GAUCHE);
         /* LIGNE 8 */
-            ArrayList<Type> ligne_8 = new ArrayList<Type>();
+            ArrayList<Type> ligne_8 = new ArrayList<>();
                 ligne_8.add(Type.VERTICALE);
                 ligne_8.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_8.add(Type.CROIX);
@@ -315,7 +323,7 @@ public class DifficulteCarte {
                 ligne_8.add(Type.T_INVERSE);
                 ligne_8.add(Type.T_GAUCHE);
         /* LIGNE 9 */
-            ArrayList<Type> ligne_9 = new ArrayList<Type>();
+            ArrayList<Type> ligne_9 = new ArrayList<>();
                 ligne_9.add(Type.T_DROITE);
                 ligne_9.add(Type.HORIZONTALE);
                 ligne_9.add(Type.CROIX);
@@ -327,7 +335,7 @@ public class DifficulteCarte {
                 ligne_9.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_9.add(Type.T_GAUCHE);
         /* LIGNE 10 */
-            ArrayList<Type> ligne_10 = new ArrayList<Type>();
+            ArrayList<Type> ligne_10 = new ArrayList<>();
                 ligne_10.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_10.add(Type.HORIZONTALE);
                 ligne_10.add(Type.T_NORMAL);
@@ -354,13 +362,14 @@ public class DifficulteCarte {
     }
 
     /**
-     *         Une descritption d'un niveau difficile.
+     * Une descritption d'un niveau difficile.
+     * @return 
      */
     public ArrayList<ArrayList<Type>> carteDifficile() {
-        ArrayList<ArrayList<Type>> descDifficile = new ArrayList<ArrayList<Type>>();
+        ArrayList<ArrayList<Type>> descDifficile = new ArrayList<>();
 
         /* LIGNE 1 on va de bas en haut*/
-            ArrayList<Type> ligne_1 = new ArrayList<Type>();
+            ArrayList<Type> ligne_1 = new ArrayList<>();
                 ligne_1.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_1.add(Type.T_INVERSE);
                 ligne_1.add(Type.HORIZONTALE);
@@ -372,7 +381,7 @@ public class DifficulteCarte {
                 ligne_1.add(Type.HORIZONTALE);
                 ligne_1.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 2 */
-            ArrayList<Type> ligne_2 = new ArrayList<Type>();
+            ArrayList<Type> ligne_2 = new ArrayList<>();
                 ligne_2.add(Type.VERTICALE);
                 ligne_2.add(Type.T_DROITE);
                 ligne_2.add(Type.HORIZONTALE);
@@ -384,7 +393,7 @@ public class DifficulteCarte {
                 ligne_2.add(Type.HORIZONTALE);
                 ligne_2.add(Type.T_GAUCHE);
         /* LIGNE 3 */
-            ArrayList<Type> ligne_3 = new ArrayList<Type>();
+            ArrayList<Type> ligne_3 = new ArrayList<>();
                 ligne_3.add(Type.VERTICALE);
                 ligne_3.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_3.add(Type.HORIZONTALE);
@@ -396,7 +405,7 @@ public class DifficulteCarte {
                 ligne_3.add(Type.HORIZONTALE);
                 ligne_3.add(Type.ANGLE_HAUT_DROIT);
         /* LIGNE 4 */
-            ArrayList<Type> ligne_4 = new ArrayList<Type>();
+            ArrayList<Type> ligne_4 = new ArrayList<>();
                 ligne_4.add(Type.VERTICALE);
                 ligne_4.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_4.add(Type.T_INVERSE);
@@ -408,7 +417,7 @@ public class DifficulteCarte {
                 ligne_4.add(Type.T_INVERSE);
                 ligne_4.add(Type.ANGLE_BAS_DROIT);
         /* LIGNE 5 */
-            ArrayList<Type> ligne_5 = new ArrayList<Type>();
+            ArrayList<Type> ligne_5 = new ArrayList<>();
             	ligne_5.add(Type.VERTICALE);
             	ligne_5.add(Type.VERTICALE);
             	ligne_5.add(Type.ANGLE_HAUT_GAUCHE);
@@ -420,7 +429,7 @@ public class DifficulteCarte {
             	ligne_5.add(Type.VERTICALE);
             	ligne_5.add(Type.VERTICALE);
         /* LIGNE 6 */
-            ArrayList<Type> ligne_6 = new ArrayList<Type>();
+            ArrayList<Type> ligne_6 = new ArrayList<>();
                 ligne_6.add(Type.VERTICALE);
                 ligne_6.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_6.add(Type.T_INVERSE);
@@ -432,7 +441,7 @@ public class DifficulteCarte {
                 ligne_6.add(Type.VERTICALE);
                 ligne_6.add(Type.VERTICALE);
         /* LIGNE 7 */
-            ArrayList<Type> ligne_7 = new ArrayList<Type>();
+            ArrayList<Type> ligne_7 = new ArrayList<>();
                 ligne_7.add(Type.VERTICALE);
                 ligne_7.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_7.add(Type.CROIX);
@@ -444,7 +453,7 @@ public class DifficulteCarte {
                 ligne_7.add(Type.ANGLE_HAUT_DROIT);
                 ligne_7.add(Type.VERTICALE);
         /* LIGNE 8 */
-            ArrayList<Type> ligne_8 = new ArrayList<Type>();
+            ArrayList<Type> ligne_8 = new ArrayList<>();
                 ligne_8.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_8.add(Type.T_NORMAL);
                 ligne_8.add(Type.CROIX);
@@ -456,7 +465,7 @@ public class DifficulteCarte {
                 ligne_8.add(Type.HORIZONTALE);
                 ligne_8.add(Type.T_GAUCHE);
         /* LIGNE 9 */
-            ArrayList<Type> ligne_9 = new ArrayList<Type>();
+            ArrayList<Type> ligne_9 = new ArrayList<>();
                 ligne_9.add(Type.ANGLE_BAS_GAUCHE);
                 ligne_9.add(Type.HORIZONTALE);
                 ligne_9.add(Type.T_NORMAL);
@@ -468,7 +477,7 @@ public class DifficulteCarte {
                 ligne_9.add(Type.HORIZONTALE);
                 ligne_9.add(Type.T_GAUCHE);
         /* LIGNE 10 */
-            ArrayList<Type> ligne_10 = new ArrayList<Type>();
+            ArrayList<Type> ligne_10 = new ArrayList<>();
                 ligne_10.add(Type.ANGLE_HAUT_GAUCHE);
                 ligne_10.add(Type.HORIZONTALE);
                 ligne_10.add(Type.HORIZONTALE);

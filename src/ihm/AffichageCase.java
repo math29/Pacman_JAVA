@@ -24,18 +24,19 @@ import main.Jeu;
  *
  * @author Mathieu
  */
-public class AffichageCase extends JPanel{
+public final class AffichageCase extends JPanel{
     
-    private Case _case;
+    private final Case _case;
     private double _rotationImage;
     private AffichageObjet AObj;
-    private Dimension _dim;
-    private Point _pointImage;
+    private final Dimension _dim;
+    private final Point _pointImage;
     private Image _im;
     AffichageObjet _AObj;
     
     /**
      * Créera l'objet permettant de dessiner une case.
+     * @param c
      */
     public AffichageCase(Case c) {
         super();
@@ -83,7 +84,6 @@ public class AffichageCase extends JPanel{
         try {
             tmp_image = ImageIO.read(new File("mini_case.png"));
         } catch (IOException e) {
-            e.printStackTrace();
             System.err.println("L'image du skin n'a pas été trouvée !");
             Jeu.getInstance().end();
         }

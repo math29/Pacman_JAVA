@@ -26,10 +26,10 @@ import jeu.Joueur;
  *
  * @author Mathieu
  */
-public class AffichageJoueur extends JPanel{
+public final class AffichageJoueur extends JPanel{
     
-    private Joueur _joueur;
-    private Dimension _resolution;
+    private final Joueur _joueur;
+    private final Dimension _resolution;
     public enum Direction {
         GAUCHE, DROITE, HAUT, BAS
     }

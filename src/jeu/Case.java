@@ -4,12 +4,21 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+/**
+ * Représentation 2D d'une case qui étend la classe Point2D
+ * @author Mathieu
+ */
 public class Case extends Point2D{
 
 	/* Nous donne les coordonnees de la case */ 
-	private Point _coordonnees;
+	private final Point _coordonnees;
 	
 	/* Liste des differents types de case possible, voir doc pour plus de détails */
+
+    /**
+     * Enumération des différents types de cases
+     */
+    
 	public enum Type{
 		HORIZONTALE, VERTICALE,
         T_NORMAL, T_INVERSE, T_DROITE, T_GAUCHE,
@@ -32,6 +41,13 @@ public class Case extends Point2D{
         private boolean estPlein;
         
 	/* Constructeur */
+
+    /**
+     * Constructeur de notre classe
+     * @param TYPE
+     * @param POS
+     */
+    
 	public Case(Type TYPE, Point POS){
             type = TYPE;
                 
@@ -39,7 +55,7 @@ public class Case extends Point2D{
             default:
             case HORIZONTALE:
             case VERTICALE:
-                Contenu = new ArrayList<Objet2D>(2);
+                Contenu = new ArrayList<>(2);
                 break;
             case T_NORMAL:
             case T_INVERSE:
@@ -49,19 +65,23 @@ public class Case extends Point2D{
             case ANGLE_HAUT_DROIT:
             case ANGLE_BAS_GAUCHE:
             case ANGLE_BAS_DROIT:
-                Contenu = new ArrayList<Objet2D>(3);
+                Contenu = new ArrayList<>(3);
                 break;
             case CROIX:
-                Contenu = new ArrayList<Objet2D>(3);
+                Contenu = new ArrayList<>(3);
                 break;
             }   
             _coordonnees = new Point(POS);
 		
         }
 
-
-	public boolean mouvementPossible(Coordonnees coord){
-            double x = 0, y = 0;
+    /**
+     * Retourne si le mouvement en fonction des coordonnées passées en paramètre est possible ou pas
+     * @param coord
+     * @return
+     */
+    public boolean mouvementPossible(Coordonnees coord){
+            double x, y;
             /* traductions des coordonn�es labyrinthe --> coordonn�es case */
             x = ((coord.getX()/Personnage.facteurPrecision) - _coordonnees.y) * 50;
             y = ((coord.getY()/Personnage.facteurPrecision) - _coordonnees.x) * 50;
@@ -105,27 +125,45 @@ public class Case extends Point2D{
                     return true;
              }
            }
+
+    /**
+     * Permet d'ajouter une pièce dans une case
+     */
     
-    /* Penser a générer la création d'une cerise tous les X temps */
     public void addContenu(){
         PieceOr piece = new PieceOr();
         Contenu.add(piece);
         estPlein=true;
     }
     
+    /**
+     * Permet de supprimer une pièce d'une case
+     */
     public void supprObjets(){
         Contenu.clear();
         estPlein=false;
     }
 
+    /**
+     * Retourne les coordonnees de la case
+     * @return
+     */
     public Point getCoordonnees() {
         return _coordonnees;
     }
 
+    /**
+     * Retourne le type de case
+     * @return
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     * Retourne le contenu de la case
+     * @return
+     */
     public ArrayList<Objet2D> getContenu() {
         return Contenu;
     }
@@ -137,27 +175,31 @@ public class Case extends Point2D{
     }
 
 
-	@Override
-	public double getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public void setLocation(double x, double y) {
-		// TODO Auto-generated method stub
-		
-	}
-        
-    public ArrayList<Objet2D> getObjets() {
-        return Contenu;
+    @Override
+    public double getY() {
+	// TODO Auto-generated method stub
+	return 0;
     }
 
+
+    @Override
+    public void setLocation(double x, double y) {
+	// TODO Auto-generated method stub
+		
+    }
+
+    /**
+     * Set l'objet dans le contenu de notre case
+     * @param _objets
+     */
     public void setObjets(ArrayList<Objet2D> _objets) {
         this.Contenu = _objets;
     }
     
+    /**
+     * Retourne 1 si on a un objet dans la case, 0 sinon
+     * @return
+     */
     public boolean estPlein(){
         return estPlein;
     }

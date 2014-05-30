@@ -4,42 +4,20 @@ import BDD.Connect;
 import GestionPersonnages.GestionFantome;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.RenderableImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
-import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,27 +27,30 @@ import jeu.DifficulteCarte;
 import main.Jeu;
 
 /**
- *
+ * JFrame contenant notre fenetre principale, fenetre qui contient le jeu dans son intégralité
  * @author Mathieu
  */
-public class FenetrePrincipale extends JFrame implements ActionListener{	// Extension de JFrame pour pouvoir cr�er notre fen�tre graphique
+public final class FenetrePrincipale extends JFrame implements ActionListener{
 	
-	/* d�finition du serialVersionUID en cas de s�rialization de la classe */
+	/* définition du serialVersionUID en cas de sérialization de la classe */
 	private static final long serialVersionUID = 00L;
 	
-	/* Cr�ation d'un menu */
+	/* Création d'un menu */
 	private JMenuBar barreMenu;
-
+        
+        /* Bouton pour démarrer le jeu */
         private JButton boutonStart;
+        
+        /* Bouttons présents lors de la partie */
         private JButton item_newGame;
+        private JButton exitBouton;
+        
+        /* Menu de choix du skin */
         private JButton boutonGO;
         private JButton boutonOption;
-        private JButton boutonRetour;
-        private JButton exitBouton;
-        private JButton boutonSkin1;
-        private JButton boutonSkin2;
-        private JButton boutonSkin3;
-        private JButton boutonCouperSon;
+        private BoutonSkin boutonSkin1;
+        private BoutonSkin boutonSkin2;
+        private BoutonSkin boutonSkin3;
         
         /*Gestion menu option*/
         private JComboBox choixCouleur;
@@ -83,29 +64,23 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
         private Image img2;
         private Image img3;
         
-        /*
-        *   Boutons Fenetre de choix de MAP
-        */
+        /* Boutons Fenetre de choix de MAP */
         private Bouton boutonMap1;
         private Bouton boutonMap2;
         private Bouton boutonMap3;
         private Bouton boutonChoixPerso;
         
-        /*
-        Fenetre de Fin de jeu
-        
-        */
+        /* Fenetre de Fin de jeu */
         JOptionPane boiteDialogue;
         
+        /* Variables utilisées pour la gestion de l'affichage du jeu */
         private AffichageLabyrinthe _affLab;
         private final Jeu _jeu;
-        
         private String _score;
-        
         private GestionFantome _gestionF;
 	
     /**
-     *
+     * Constructeur qui nous initialise notre fenetre
      * @param jeu
      * @param x
      */
@@ -127,8 +102,14 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
 	  }
 	
     /**
-     *
-     * @param x numéro du panel que l'on va afficher (1 : Fenetre d'accueil, 2 : Choix du Skin, 3 : Le jeu, 4 : Fenetre d'options, 5 : Fenetre choix de MAP, 6 : Fenetre de fin de jeu)
+     * numéro du panel que l'on va afficher 
+     * 1 : Fenetre d'accueil
+     * 2 : Choix du Skin
+     * 3 : Le jeu
+     * 4 : Fenetre d'options
+     * 5 : Fenetre choix de MAP
+     * 6 : Fenetre de fin de jeu)
+     * @param x 
      */
     @SuppressWarnings("empty-statement")
         public void affichePanel(int x){
@@ -175,17 +156,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 } catch (IOException ex) {
                     }
                 boutonSkin1 = new BoutonSkin(img1);
+                boutonSkin1.addActionListener(this);
                 try {
                 img2 = ImageIO.read(new File("pacman_ouvert.png"));
                 } catch (IOException ex) {
                     }
                 boutonSkin2 = new BoutonSkin(img2);
+                boutonSkin2.addActionListener(this);
                 
                 try {
                 img3 = ImageIO.read(new File("pacman_ouvert.png"));
                 } catch (IOException ex) {
                     }
                 boutonSkin3 = new BoutonSkin(img3);
+                boutonSkin3.addActionListener(this);
                 
                 //boutonSkin1.addActionListener(this);
                 //boutonSkin2.addActionListener(this);
@@ -219,21 +203,15 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
 		 * 
 		 */
 		
-		/* Gestion de la barre de Menu */
-		
 		// Instanciation d'une barre de Menu
 		barreMenu = new JMenuBar();
 		
 		//Boutons New Game et Exit
 		item_newGame = new JButton("New Game");
 		exitBouton = new JButton("Exit");
-                // Bouton couper le son
-                boutonCouperSon = new JButton("Couper Son");
                 
 		// On les ajoute � la barre de Menu
 		barreMenu.add(item_newGame);
-                barreMenu.add(boutonCouperSon);
-                //barreMenu.add(boutonOption);
 		barreMenu.add(exitBouton);
 		
 		//On ajoute la barre de Menu � la JFrame
@@ -244,7 +222,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
 		/* Gestion des controleurs de la barre de Menu */
 		
                 item_newGame.addActionListener(this);
-                boutonCouperSon.addActionListener(this);
                 exitBouton.addActionListener(this);
                 
                 //On d�finit le layout � utiliser sur le content pane
@@ -355,7 +332,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
             case 6 :
                 // Gestion page de fin de game
                 boiteDialogue = new JOptionPane();
-                String nom = (String)boiteDialogue.showInputDialog(null, "Veuillez entrer votre nom !", "Nouveau Score", JOptionPane.QUESTION_MESSAGE);
+                String nom = (String)JOptionPane.showInputDialog(null, "Veuillez entrer votre nom !", "Nouveau Score", JOptionPane.QUESTION_MESSAGE);
                 
                 Connect c = new Connect(_jeu ,nom);
                 this.getContentPane().removeAll();
@@ -394,40 +371,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
             
         }
 
-    /**
-     *
-     * @return l'affichage du labyrinthe
-     */
-    public AffichageLabyrinthe getAffLab() {
-        return _affLab;
-    }
-
-    /**
-     *
-     * @param _affLab
-     */
-    public void setAffLab(AffichageLabyrinthe _affLab) {
-        this._affLab = _affLab;
-    }
-        
-	/* Retourne le MenuBar utilis� */
-
-    /**
-     *
-     * @return La bar de menu
-     */
-	public JMenuBar getmenuBar(){
-		return barreMenu;
-	}
-	
-    /**
-     *
-     * @param menubarre
-     */
-    public void setmenuBar(JMenuBar menubarre){
-		barreMenu = menubarre;
-	}
-	
         @Override
         public void actionPerformed(ActionEvent arg0) {
  
@@ -436,20 +379,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
             }
             
             if(arg0.getSource() == boutonOption){
-                if(_jeu.isPartieEnCours()){
-                    _jeu.pause();
-                }
                 affichePanel(4);
-                
             }
 
             if(menu==4 && choixCouleur.getSelectedItem()=="Vert"){
                 System.out.println("Bouton Vert");
-            }
-            
-            if(arg0.getSource() == boutonCouperSon){
-                _jeu.stopMusique();
-                
             }
             
             if(arg0.getSource() == item_newGame || arg0.getSource() == boutonGO){
@@ -472,14 +406,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                     
             if(arg0.getSource() == boutonSkin1){
                 _jeu.setSkinJoueur("pacmanWarriorTransparent.gif");
+                boutonSkin2.setCouleur("white");
+                boutonSkin3.setCouleur("white");
             }
             
             if(arg0.getSource() == boutonSkin2){
+                boutonSkin1.setCouleur("white");
+                boutonSkin3.setCouleur("white");
                 _jeu.setSkinJoueur("pacmangirlv2 transparant.gif");
             }
             
             if(arg0.getSource() == boutonSkin3){
                 _jeu.setSkinJoueur("pacman_ouvert.png");
+                boutonSkin1.setCouleur("white");
+                boutonSkin2.setCouleur("white");
             }
             
             if(arg0.getSource() == boutonMap1){
@@ -488,7 +428,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 boutonMap2.setCouleur("jaune");
                 boutonMap3.setCouleur("jaune");
                 _jeu.setLevel(DifficulteCarte.Niveau.FACILE);
-                jpo1.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
+                JOptionPane.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
             }
             
             if(arg0.getSource() == boutonMap2){
@@ -497,7 +437,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 boutonMap1.setCouleur("jaune");
                 boutonMap3.setCouleur("jaune");
                 _jeu.setLevel(DifficulteCarte.Niveau.MOYEN);
-                jpo1.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
+                JOptionPane.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
             }
             
             if(arg0.getSource() == boutonMap3){
@@ -506,7 +446,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
                 boutonMap1.setCouleur("jaune");
                 boutonMap2.setCouleur("jaune");
                 _jeu.setLevel(DifficulteCarte.Niveau.DIFFICILE);
-                jpo1.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
+                JOptionPane.showMessageDialog(null, null, "MAP 1", JOptionPane.INFORMATION_MESSAGE, img);
             }
             
             if(menu==4 && choixCouleur.getSelectedItem()=="Rose"){
@@ -550,19 +490,26 @@ public class FenetrePrincipale extends JFrame implements ActionListener{	// Exte
             	_jeu.setDifficulte(30);
             }
         }
-        
-        public AffichageLabyrinthe getAfficheLabyrinthe(){
-            return _affLab;
-        }
-	
-        public void afficheScore(int score){
+    /**
+     * Set l'affichage du labyrinthe
+     * @param score
+     */
+    public void afficheScore(int score){
              _score=Integer.toString(score); 
         }
         
-        public AffichageLabyrinthe getAffichageLabyrinthe(){
+    /**
+     * Retourne l'affichage du labyrinthe
+     * @return
+     */
+    public AffichageLabyrinthe getAffichageLabyrinthe(){
             return _affLab;
         }
 
+    /**
+     * Set la gestion du jeu
+     * @param gestionF
+     */
     public void setGestionF(GestionFantome gestionF) {
         _gestionF = gestionF;
     }

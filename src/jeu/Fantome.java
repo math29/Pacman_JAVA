@@ -7,11 +7,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.Jeu;
 
+/**
+ * Classe gérant nos fantomes, leur aspect, leurs vies ...
+ * @author Mathieu
+ */
 public class Fantome extends Personnage{
         
     private boolean _enVie=false;
-    private String _skin;
+    private final String _skin;
 
+    /**
+     * Constructeur qui initialise un fantome à un lieu, réprésenté par son skin
+     * @param coord
+     * @param skin
+     */
     public Fantome(Coordonnees coord, String skin) {
         super(coord);
         _skin = skin;
@@ -28,11 +37,18 @@ public class Fantome extends Personnage{
 
     }
     
+    /**
+     * Retourne 1 si le fantome est vivant, 0 sinon
+     * @return
+     */
     public boolean estVivant(){
         return _enVie;
     }
     
-       public void meurt(){
+    /**
+     * Tue le fantome
+     */
+    public void meurt(){
         _enVie = false;
     }
     

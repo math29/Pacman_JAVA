@@ -15,8 +15,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Transparency;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -27,9 +25,9 @@ import jeu.Fantome;
  * @author Mathieu
  */
 public class AffichageFantome extends JPanel{
-    private Fantome _fantome;
-    private Dimension _resolution;
-    private Image _image;
+    private final Fantome _fantome;
+    private final Dimension _resolution;
+    private final Image _image;
     private double _rotation;
     
     

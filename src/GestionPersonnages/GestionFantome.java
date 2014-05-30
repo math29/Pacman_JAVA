@@ -26,21 +26,21 @@ import main.Jeu;
  * @author Mathieu
  */
 public class GestionFantome extends Thread{
-    private Fantome _fantome1;
-    private Fantome _fantome2;
-    private Fantome _fantome3;
+    private final Fantome _fantome1;
+    private final Fantome _fantome2;
+    private final Fantome _fantome3;
     private boolean mouvementFait;
-    private AffichageLabyrinthe _affLab;
+    private final AffichageLabyrinthe _affLab;
  
     private Direction _directionF1;
     private Direction _directionF2;
     private Direction _directionF3;
     
     private Direction _DirectionJoueur;
-    private Joueur _joueur;
-    private AffichageJoueur _affJoueur;
-    private Jeu _jeu ;
-    private int _rapidite;
+    private final Joueur _joueur;
+    private final AffichageJoueur _affJoueur;
+    private final Jeu _jeu ;
+    private final int _rapidite;
     
     public GestionFantome(Jeu jeu, Fantome fantome1, Fantome fantome2,Fantome fantome3, AffichageLabyrinthe afficheLab, Joueur joueur, AffichageJoueur affJoueur, int r){
         _fantome1 = fantome1;
@@ -53,21 +53,22 @@ public class GestionFantome extends Thread{
         _rapidite = r;
     }
     
+    @Override
     public void run() {
         Coordonnees coord = null;
         Coordonnees coordF2 = null;
         Coordonnees coordF3 = null;
         
-        Case caseActuelleF1 = null;
-        Case caseActuelleF2 = null;
-        Case caseActuelleF3 = null;
+        Case caseActuelleF1;
+        Case caseActuelleF2;
+        Case caseActuelleF3;
         
-        Case caseActuelleJoueur = null;
+        Case caseActuelleJoueur;
         _directionF1=Direction.HAUT;
         _directionF2=Direction.HAUT;
         _directionF3=Direction.HAUT;
         _DirectionJoueur=Direction.HAUT;
-        int choixChemin=1;
+        int choixChemin;
         GregorianCalendar d = new GregorianCalendar();
         Random rand = new Random(d.get(Calendar.SECOND));
         while(true){
@@ -358,16 +359,7 @@ public class GestionFantome extends Thread{
                         _affLab.repaintLabyrinthe();
                         if ( caseActuelleJoueur.estPlein() )
                         {
-                            //On teste si on mange une pillule ou un fruit
-                            if ( caseActuelleJoueur.getObjets().get(0) instanceof jeu.Cerise )
-                            {
-                                _joueur.gagnePoint(5);
-                                //_affLab.getLab().change_etat();
-                            }
-                            else
-                            {
-                                _joueur.gagnePoint(1);
-                            }
+                            _joueur.gagnePoint(1);
                             caseActuelleJoueur.supprObjets();
 
                         }
@@ -384,16 +376,8 @@ public class GestionFantome extends Thread{
                         _affLab.repaintLabyrinthe();
                         if ( caseActuelleJoueur.estPlein() )
                         {
-                            //On teste si on mange une pillule ou un fruit
-                            if ( caseActuelleJoueur.getObjets().get(0) instanceof jeu.Cerise )
-                            {
-                                _joueur.gagnePoint(5);
-                                //_affLab.getLab().change_etat();
-                            }
-                            else
-                            {
-                                _joueur.gagnePoint(1);
-                            }
+                            
+                            _joueur.gagnePoint(1);
                             caseActuelleJoueur.supprObjets();
 
                         }
@@ -410,16 +394,9 @@ public class GestionFantome extends Thread{
                         
                         if ( caseActuelleJoueur.estPlein() )
                         {
-                            //On teste si on mange une pillule ou un fruit
-                            if ( caseActuelleJoueur.getObjets().get(0) instanceof jeu.Cerise )
-                            {
-                                _joueur.gagnePoint(5);
-                                //_affLab.getLab().change_etat();
-                            }
-                            else
-                            {
+                            
                                 _joueur.gagnePoint(1);
-                            }
+                            
                             caseActuelleJoueur.supprObjets();
 
                         }
@@ -433,16 +410,8 @@ public class GestionFantome extends Thread{
                         _affLab.repaintLabyrinthe();
                         if ( caseActuelleJoueur.estPlein() )
                         {
-                            //On teste si on mange une pillule ou un fruit
-                            if ( caseActuelleJoueur.getObjets().get(0) instanceof jeu.Cerise )
-                            {
-                                _joueur.gagnePoint(5);
-                                //_affLab.getLab().change_etat();
-                            }
-                            else
-                            {
+                            
                                 _joueur.gagnePoint(1);
-                            }
                             caseActuelleJoueur.supprObjets();
 
                         }
@@ -452,7 +421,7 @@ public class GestionFantome extends Thread{
             // On actualise le labyrinthe
             _affLab.repaintLabyrinthe();
             try {
-                this.sleep(_rapidite);
+                GestionFantome.sleep(_rapidite);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GestionFantome.class.getName()).log(Level.SEVERE, null, ex);
             }

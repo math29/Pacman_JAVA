@@ -1,5 +1,9 @@
 package jeu;
 
+/**
+ * Classe de gestion des pièces d'or
+ * @author Mathieu
+ */
 public class PieceOr extends Objet2D{
 
 	@Override

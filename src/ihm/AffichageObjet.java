@@ -9,7 +9,6 @@ package ihm;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import jeu.Cerise;
 import jeu.Objet2D;
 import jeu.PieceOr;
 
@@ -19,7 +18,7 @@ import jeu.PieceOr;
  */
 public class AffichageObjet extends JPanel {
     
-    private Objet2D _objet;
+    private final Objet2D _objet;
     
     public AffichageObjet(Objet2D objet) {
         _objet = objet;
@@ -36,10 +35,6 @@ public class AffichageObjet extends JPanel {
         if(_objet instanceof PieceOr)
         {
             g.setColor(Color.YELLOW);
-        }
-        else if (_objet instanceof Cerise)
-        {
-            g.setColor(Color.RED);
         }
 
         g.fillRect(0, 0, 5, 5);
