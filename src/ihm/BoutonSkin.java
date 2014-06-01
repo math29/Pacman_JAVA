@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Color;
@@ -18,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
- *
+ * Classe qui gère les boutons utilisés pour le choix des skins
  * @author Mathieu
  */
 public class BoutonSkin extends JButton implements MouseListener{
@@ -28,6 +22,10 @@ public class BoutonSkin extends JButton implements MouseListener{
     private final ImageObserver imageObserver;
     private String couleur = "white";
     
+    /**
+     * Constructeur a partir de l'image de chaque skin
+     * @param img
+     */
     public BoutonSkin(Image img){
         super();
         image = img;
@@ -72,6 +70,10 @@ public class BoutonSkin extends JButton implements MouseListener{
             g.drawImage(image,  0 , 0 , getWidth() , getHeight() , imageObserver);
         }
     
+    /**
+     * Défini la couleur de l'encadrement autour du skin actuellement
+     * @param c
+     */
     public void setCouleur(String c){
         couleur=c;
     }

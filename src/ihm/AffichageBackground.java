@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Graphics;
@@ -14,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- *
+ * Classe qui gère l'affichage du fond d'écran de nos fenetres de menus
  * @author Mathieu
  */
 public class AffichageBackground extends JPanel{

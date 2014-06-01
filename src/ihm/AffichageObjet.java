@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Color;
@@ -13,13 +7,17 @@ import jeu.Objet2D;
 import jeu.PieceOr;
 
 /**
- *
+ * Classe qui gère l'affichage des objets sur le labyrinthe
  * @author Mathieu
  */
 public class AffichageObjet extends JPanel {
     
     private final Objet2D _objet;
     
+    /**
+     * Constructeur de cette classe a partir de l'objet a afficher
+     * @param objet
+     */
     public AffichageObjet(Objet2D objet) {
         _objet = objet;
 

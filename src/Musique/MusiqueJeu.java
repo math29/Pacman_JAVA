@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Musique;
 
 import java.io.File;
@@ -18,7 +12,7 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- *
+ * Classe qui gère la musique de fond du jeu
  * @author Mathieu
  */
 public class MusiqueJeu extends Thread {
@@ -27,6 +21,10 @@ public class MusiqueJeu extends Thread {
     private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
     enum Position {LEFT, RIGHT, NORMAL};
  
+    /**
+     * Constructeur qui initialise la classe a partir du fichier audio a jouer
+     * @param wavfile
+     */
     public MusiqueJeu(String wavfile) {
         filename = wavfile;
         curPosition = Position.NORMAL;

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package BDD;
 
 import java.sql.Connection;
@@ -17,7 +11,7 @@ import jeu.DifficulteCarte;
 import main.Jeu;
 
 /**
- *
+ * Classe qui gère les échanges avec la BDD des scores
  * @author Mathieu
  */
 public class Connect {
@@ -26,6 +20,11 @@ public class Connect {
     private ArrayList <String> contenu;
     private String bdd;
     
+    /**
+     * Constructeur de cette classe a partir du jeu et du nom de la BDD a atteindre
+     * @param j
+     * @param n
+     */
     public Connect(Jeu j, String n){
         try{
             Class.forName("org.postgresql.Driver");
@@ -75,10 +74,18 @@ public class Connect {
         }
     }
     
+    /**
+     * Retourne les titres de la BDD 
+     * @return
+     */
     public ArrayList <String> getTitres(){
         return titres;
     }
     
+    /**
+     * Retourne le contenu de la BDD
+     * @return
+     */
     public ArrayList <String> getContenu(){
         return contenu;
     }

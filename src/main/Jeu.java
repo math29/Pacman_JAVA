@@ -41,7 +41,7 @@ public class Jeu {
         
         /* Le Pacman et son skin sélectionné*/
         private Joueur _joueur;
-        private String _skinJoueur = "pacman_ouvert.png";
+        private String _skinJoueur = "SKINS/pacman_ouvert.png";
         
         /* Nos 3 fantomes */
         private Fantome _fantome1;
@@ -63,7 +63,7 @@ public class Jeu {
         
         /* Choix des options avec la difficulte, la music et la couleur de fond d'écran choisis */
         private int _difficulte=150;
-        private String _music="Nyan-Cat-ringtone-6-second-loop.wav.wav";
+        private String _music="MUSICS/Nyan-Cat-ringtone-6-second-loop.wav.wav";
         Niveau _level=Niveau.MOYEN;
         
         // Constructeur
@@ -80,7 +80,7 @@ public class Jeu {
                 _fen = new FenetrePrincipale(this, 1);
                 
                 /* On lance la musique de l'accueil en arriere plan via un thread */
-                threadMusiqueAccueil = new MusiqueJeu("EFFECTS01.WAV");
+                threadMusiqueAccueil = new MusiqueJeu("MUSICS/EFFECTS01.WAV");
                 threadMusiqueAccueil.start();
 	}
     
@@ -107,9 +107,9 @@ public class Jeu {
                 /* On place le joueur et le/les fantomes */ 
                 Coordonnees _coordonnes = new Coordonnees(0, 0);
                 _joueur = new Joueur(_coordonnes, _skinJoueur);
-                _fantome1 = new Fantome(new Coordonnees(10,10), "le-fantome-de-pacman.gif");
-                _fantome2 = new Fantome(new Coordonnees(20,20), "le-fantome-de-pacman.gif");
-                _fantome3 = new Fantome(new Coordonnees(30,30), "le-fantome-de-pacman.gif");
+                _fantome1 = new Fantome(new Coordonnees(10,10), "SKINS/le-fantome-de-pacman.gif");
+                _fantome2 = new Fantome(new Coordonnees(20,20), "SKINS/le-fantome-de-pacman.gif");
+                _fantome3 = new Fantome(new Coordonnees(30,30), "SKINS/le-fantome-de-pacman.gif");
                 
 		// Initialisation des paramètres
 		partieEnCours = true;
@@ -252,7 +252,7 @@ public class Jeu {
         partieEnCours = true;
         _fin = false;
         
-        threadMusiquePartie = new MusiqueJeu("Nyan-Cat-ringtone-6-second-loop.wav.wav");
+        threadMusiquePartie = new MusiqueJeu("MUSICS/Nyan-Cat-ringtone-6-second-loop.wav.wav");
         //_gestionF = new GestionFantome(_fantome, _fen.getAfficheLabyrinthe());
         
         _gestionF.start();

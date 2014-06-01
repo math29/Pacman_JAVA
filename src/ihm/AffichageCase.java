@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Color;
@@ -21,7 +15,7 @@ import jeu.Case;
 import main.Jeu;
 
 /**
- *
+ * Classe qui gère l'affichage des cases
  * @author Mathieu
  */
 public final class AffichageCase extends JPanel{
@@ -76,7 +70,7 @@ public final class AffichageCase extends JPanel{
         g.drawImage(_im, 0, 0, 50, 50, _pointImage.x, _pointImage.y, _pointImage.x + 50, _pointImage.y + 50, this);
     }
     
-        /**
+    /**
      * Calcul l'image qui sera affichée pour cette case.
      */
     public void calculImage() {

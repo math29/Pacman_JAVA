@@ -94,7 +94,7 @@ public final class FenetrePrincipale extends JFrame implements ActionListener{
             setLocation((int)(screenSize.getWidth() / 2) - (int)Jeu.getInstance().getResolution().getWidth() / 2,
                     (int)(screenSize.getHeight() / 2) - (int)Jeu.getInstance().getResolution().getHeight() / 2);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // Gestion de la fermeture sur appuie de la croix rouge
-	    ImageIcon icon = new ImageIcon("pacman basique transparant.gif");
+	    ImageIcon icon = new ImageIcon("SKINS/pacman basique transparant.gif");
             this.setIconImage(icon.getImage());
             
             affichePanel(x);
@@ -152,20 +152,20 @@ public final class FenetrePrincipale extends JFrame implements ActionListener{
                 */
                 
                 try {
-                img1 = ImageIO.read(new File("pacmanWarriorTransparent.gif"));
+                img1 = ImageIO.read(new File("SKINS/pacmanWarriorTransparent.gif"));
                 } catch (IOException ex) {
                     }
                 boutonSkin1 = new BoutonSkin(img1);
                 boutonSkin1.addActionListener(this);
                 try {
-                img2 = ImageIO.read(new File("pacman_ouvert.png"));
+                img2 = ImageIO.read(new File("SKINS/pacman_ouvert.png"));
                 } catch (IOException ex) {
                     }
                 boutonSkin2 = new BoutonSkin(img2);
                 boutonSkin2.addActionListener(this);
                 
                 try {
-                img3 = ImageIO.read(new File("pacman_ouvert.png"));
+                img3 = ImageIO.read(new File("SKINS/pacman_ouvert.png"));
                 } catch (IOException ex) {
                     }
                 boutonSkin3 = new BoutonSkin(img3);
@@ -405,7 +405,7 @@ public final class FenetrePrincipale extends JFrame implements ActionListener{
             }
                     
             if(arg0.getSource() == boutonSkin1){
-                _jeu.setSkinJoueur("pacmanWarriorTransparent.gif");
+                _jeu.setSkinJoueur("SKINS/pacmanWarriorTransparent.gif");
                 boutonSkin2.setCouleur("white");
                 boutonSkin3.setCouleur("white");
             }
@@ -413,11 +413,11 @@ public final class FenetrePrincipale extends JFrame implements ActionListener{
             if(arg0.getSource() == boutonSkin2){
                 boutonSkin1.setCouleur("white");
                 boutonSkin3.setCouleur("white");
-                _jeu.setSkinJoueur("pacmangirlv2 transparant.gif");
+                _jeu.setSkinJoueur("SKINS/pacmangirlv2 transparant.gif");
             }
             
             if(arg0.getSource() == boutonSkin3){
-                _jeu.setSkinJoueur("pacman_ouvert.png");
+                _jeu.setSkinJoueur("SKINS/pacman_ouvert.png");
                 boutonSkin1.setCouleur("white");
                 boutonSkin2.setCouleur("white");
             }
@@ -467,15 +467,15 @@ public final class FenetrePrincipale extends JFrame implements ActionListener{
             }
             if(menu==4 && choixMusique.getSelectedItem()=="Musique 1"){
             	System.out.println("Musique 1");
-            	_jeu.setMusic("Nyan-Cat-ringtone-6-second-loop.wav.wav");
+            	_jeu.setMusic("MUSICS/Nyan-Cat-ringtone-6-second-loop.wav.wav");
             }
             if(menu==4 && choixMusique.getSelectedItem()=="Musique 2"){
             	System.out.println("Musique 2");
-            	_jeu.setMusic("Nyan-Cat-ringtone-6-second-loop.wav.wav");
+            	_jeu.setMusic("MUSICS/Nyan-Cat-ringtone-6-second-loop.wav.wav");
             }
             if(menu==4 && choixMusique.getSelectedItem()=="Musique 3"){
             	System.out.println("Musique 3");
-            	_jeu.setMusic("EFFECTS01.WAV");
+            	_jeu.setMusic("MUSICS/EFFECTS01.WAV");
             }
             if(menu==4 && choixDifficulte.getSelectedItem()=="Lent"){
             	System.out.println("Lent");

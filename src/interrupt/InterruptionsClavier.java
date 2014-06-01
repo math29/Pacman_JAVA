@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package interrupt;
 
 import GestionPersonnages.GestionFantome;
@@ -18,7 +12,7 @@ import jeu.Joueur;
 import jeu.Personnage;
 
 /**
- *
+ * Cette classe gère les interruptions générées par le calvier
  * @author Mathieu
  */
 public class InterruptionsClavier implements KeyListener {
@@ -28,6 +22,11 @@ public class InterruptionsClavier implements KeyListener {
     private AffichageJoueur _affJoueur;
     private GestionFantome _gestionF;
     
+    /**
+     * Constructeur de la classe a partir d'un joueur et d'une affichage de Labyrinthe
+     * @param joueur
+     * @param affLab
+     */
     public InterruptionsClavier(Joueur joueur, AffichageLabyrinthe affLab){
         _joueur = joueur;
         _affLab = affLab;
@@ -90,6 +89,10 @@ public class InterruptionsClavier implements KeyListener {
     public void keyTyped(KeyEvent arg0) {
     }
 
+    /**
+     * Permet de définir un nouveau gestion Fantome associé aux interruptions claviers
+     * @param gestionF
+     */
     public void setgestionFantome(GestionFantome gestionF) {
         _gestionF=gestionF;
     }

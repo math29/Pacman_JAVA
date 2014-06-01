@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import interrupt.InterruptionsClavier;
@@ -18,7 +12,7 @@ import jeu.Joueur;
 import jeu.Labyrinthe;
 
 /**
- *
+ * Classe qui gère l'affichage du labyrinthe
  * @author Mathieu
  */
 public class AffichageLabyrinthe extends JPanel{
@@ -47,7 +41,7 @@ public class AffichageLabyrinthe extends JPanel{
     private InterruptionsClavier _controle;
     
     
-        /**
+    /**
      * Créer une nouvelle vue qui dessinera le labyrinthe
      * @param lab
      * @param joueur
@@ -208,54 +202,105 @@ public class AffichageLabyrinthe extends JPanel{
         }
     }
     
+    /**
+     * Repaint le labyrinthe
+     */
     public void repaintLabyrinthe() {
         repaint();
     }
 
+    /**
+     * Retourne le labyrinthe
+     * @return
+     */
     public Labyrinthe getLab() {
         return _lab;
     }
 
+    /**
+     * Met le labyrinthe
+     * @param _lab
+     */
     public void setLab(Labyrinthe _lab) {
         this._lab = _lab;
     }
     
+    /**
+     * Retourne l'affichage du joueur
+     * @return
+     */
     public AffichageJoueur getAfficheJoueur() {
         return _afficheJoueur;
     }
 
+    /**
+     * Met l'affichage du joueur
+     * @param _afficheJoueur
+     */
     public void setAfficheJoueur(AffichageJoueur _afficheJoueur) {
         this._afficheJoueur = _afficheJoueur;
     }
     
+    /**
+     * Retourne l'affichage du fantome 1
+     * @return
+     */
     public AffichageFantome getAfficheFantome1() {
         return _affFantome1;
     }
 
+    /**
+     * Met l'affichage du fantome 1
+     * @param afficheFantome
+     */
     public void setAfficheFantome1(AffichageFantome afficheFantome) {
         this._affFantome1 = afficheFantome;
     }
     
-        public AffichageFantome getAfficheFantome2() {
+    /**
+     * Retourne l'affichage du fantome 2
+     * @return
+     */
+    public AffichageFantome getAfficheFantome2() {
         return _affFantome2;
     }
 
+    /**
+     * Met l'affichage du fantome 2
+     * @param afficheFantome
+     */
     public void setAfficheFantome2(AffichageFantome afficheFantome) {
         this._affFantome2 = afficheFantome;
     }
     
-        public AffichageFantome getAfficheFantome3() {
+    /**
+     * Retourne l'affichage du fantome 3
+     * @return
+     */
+    public AffichageFantome getAfficheFantome3() {
         return _affFantome3;
     }
 
+    /**
+     * Met l'affichage du fantome 3
+     * @param afficheFantome
+     */
     public void setAfficheFantome3(AffichageFantome afficheFantome) {
         this._affFantome3 = afficheFantome;
     }
     
-        public InterruptionsClavier getControle() {
+    /**
+     * Retourne l'interruption clavier lié au labyrinthe
+     * @return
+     */
+    public InterruptionsClavier getControle() {
         return _controle;
     }
 
+    /**
+     * Définit l'interruption clavier lié au labyrinthe
+     * @param _controle
+     */
     public void setControle(InterruptionsClavier _controle) {
         this._controle = _controle;
     }

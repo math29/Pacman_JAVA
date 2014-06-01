@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Dimension;
@@ -21,7 +15,7 @@ import javax.swing.JPanel;
 import jeu.Fantome;
 
 /**
- *
+ * Classe qui gère l'affichage de chaque fantome
  * @author Mathieu
  */
 public class AffichageFantome extends JPanel{
@@ -30,7 +24,10 @@ public class AffichageFantome extends JPanel{
     private final Image _image;
     private double _rotation;
     
-    
+    /**
+     * Constructeur de cette classe à partir du fantome en question
+     * @param fantome
+     */
     public AffichageFantome(Fantome fantome) {
         _fantome = fantome;
         _resolution = new Dimension(20,20);
@@ -57,11 +54,19 @@ public class AffichageFantome extends JPanel{
         }
     }
 
+    /**
+     * Repaint le fantome
+     */
     public void rafraichir() {
         repaint();
     }
 
-    // This method returns a buffered image with the contents of an image
+    /**
+     * Permet de récupérer une image que nous allons utiliser pour l'affichage du fantome
+     * @param image
+     * @return
+     */
+        
     public static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage) image;

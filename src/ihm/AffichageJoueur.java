@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Dimension;
@@ -23,13 +17,17 @@ import javax.swing.JPanel;
 import jeu.Joueur;
 
 /**
- *
+ * Classe qui gère l'affichage du joueur
  * @author Mathieu
  */
 public final class AffichageJoueur extends JPanel{
     
     private final Joueur _joueur;
     private final Dimension _resolution;
+
+    /**
+     * Définit la direction acutelle du joueur
+     */
     public enum Direction {
         GAUCHE, DROITE, HAUT, BAS
     }
@@ -37,7 +35,10 @@ public final class AffichageJoueur extends JPanel{
     private Image _image;
     private double _rotation;
     
-    
+    /**
+     * Constructeur de la classe à partir du joueur
+     * @param joueur
+     */
     public AffichageJoueur(Joueur joueur) {
         _joueur = joueur;
         _resolution = new Dimension(20,20);
@@ -66,10 +67,17 @@ public final class AffichageJoueur extends JPanel{
         }
     }
 
+    /**
+     * Repaint le joueur
+     */
     public void rafraichir() {
         repaint();
     }
 
+    /**
+     * Gère le direction vers laquelle va le joueur (image) : n'est pas encore très au point
+     * @param dir
+     */
     public void regarderVers(Direction dir) {
             BufferedImage buff_img = toBufferedImage(_joueur.get_displayGraphic());
             if (dir != _orientation) {
@@ -94,58 +102,39 @@ public final class AffichageJoueur extends JPanel{
             }
     }
 
+    /**
+     * Lié à la direction prise, permet d'inverser l'image 
+     * @param theImage
+     * @return
+     */
     public BufferedImage effetMirroir(BufferedImage theImage) {
-        // Get an AffineTransform object that can be used to
-        // shift the image to the right by an amount equal to
-        // its width.
+
         AffineTransform transformObj = AffineTransform.getTranslateInstance(
                 theImage.getWidth(), 0);
 
-        // Concatenate this transform with a scaling
-        // transformation.
         transformObj.scale(-1.0, 1.0);
 
-        // Display the six values in the transformation matrix.
         double[] theMatrix = new double[6];
         transformObj.getMatrix(theMatrix);
 
-        // Get a translation filter object based on the
-        // AffineTransform object.
         AffineTransformOp filterObj = new AffineTransformOp(transformObj,
                 AffineTransformOp.TYPE_BICUBIC);
 
-        /*
-         * Note: Normally, I would perform the filteringoperation and return the
-         * filtered result simply byexecuting the following statement:
-         *
-         * return filterObj.filter(theImage, null);
-         *
-         * However, for reasons that I am unable to explain,when I do that for
-         * the AffineTransformOp class, theColorModel of the BufferedImage
-         * object that isreturned to the framework program named ImgMod05 isnot
-         * compatible with the method used by that programto write the output
-         * JPEG file. This results in anoutput file in which the image data
-         * appears to bescrambled. Therefore, it was necessary for me touse the
-         * following alternative code instead.
-         */
-
-        // Create a destination BufferedImage object to receive
-        // the filtered image. Force the ColorModel of the
-        // destination object to match the ColorModel of the
-        // incoming object.
         BufferedImage dest = filterObj.createCompatibleDestImage(theImage,
                 theImage.getColorModel());
 
-        // Filter the image and save the filtered image in the
-        // destination object.
+
         filterObj.filter(theImage, dest);
 
-        // Return a reference to the destination object.
         return dest;
 
     }
 
-    // This method returns a buffered image with the contents of an image
+    /**
+     * Gère le chargement de l'image pour pouvoir la réutiliser par la suite
+     * @param image
+     * @return
+     */
     public static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage) image;

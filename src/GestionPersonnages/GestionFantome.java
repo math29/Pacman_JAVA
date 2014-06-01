@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GestionPersonnages;
 
 import ihm.AffichageJoueur;
@@ -22,7 +16,7 @@ import jeu.Personnage;
 import main.Jeu;
 
 /**
- *
+ * Classe qui gère les fantomes et en partie les joueurs (collisions ...)
  * @author Mathieu
  */
 public class GestionFantome extends Thread{
@@ -42,6 +36,17 @@ public class GestionFantome extends Thread{
     private final Jeu _jeu ;
     private final int _rapidite;
     
+    /**
+     * Constructeur de cette classe
+     * @param jeu
+     * @param fantome1
+     * @param fantome2
+     * @param fantome3
+     * @param afficheLab
+     * @param joueur
+     * @param affJoueur
+     * @param r
+     */
     public GestionFantome(Jeu jeu, Fantome fantome1, Fantome fantome2,Fantome fantome3, AffichageLabyrinthe afficheLab, Joueur joueur, AffichageJoueur affJoueur, int r){
         _fantome1 = fantome1;
         _fantome2 = fantome2;
@@ -430,6 +435,10 @@ public class GestionFantome extends Thread{
       }
     }
     
+    /**
+     * Donne la direction ssuivit actuellement par le joueur
+     * @param dir
+     */
     public void setDirectionJoueur(Direction dir){
         _DirectionJoueur = dir;
     }

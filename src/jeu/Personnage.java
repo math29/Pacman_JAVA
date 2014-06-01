@@ -78,7 +78,7 @@ public abstract class Personnage {
     }
     
     /**
-     *
+     * Retourne la coordonnée X
      * @return
      */
     public double getX(){
@@ -86,7 +86,7 @@ public abstract class Personnage {
     }
     
     /**
-     *
+     * Retourne la coordonnée Y
      * @return
      */
     public double getY(){

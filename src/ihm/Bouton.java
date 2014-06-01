@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ihm;
 
 import java.awt.Color;
@@ -19,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
 /**
- *
+ * Classe qui gère les interruptions sur les boutons pour le choix des maps
  * @author Mathieu
  */
 public class Bouton extends JButton implements MouseListener{
@@ -27,6 +21,10 @@ public class Bouton extends JButton implements MouseListener{
     private Image img;
     private String couleur = "jaune";
     
+    /**
+     * Constructeur a partir de la chaine de caractère qui s'affiche dans le bouton
+     * @param str
+     */
     public Bouton(String str){
         super(str);
         this.name = str;
@@ -96,6 +94,10 @@ public class Bouton extends JButton implements MouseListener{
         }
     }
 
+    /**
+     * Couleur actuelle du bouton
+     * @param c
+     */
     public void setCouleur(String c){
         couleur=c;
     }
